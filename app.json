@@ -9,10 +9,13 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.stackoverflow.status",
+      "associatedDomains": ["applinks:status-front-rho.vercel.app"]
     },
     "android": {
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.status-app"
     },
     "web": {
       "bundler": "metro",
