@@ -1,7 +1,8 @@
 import { MESSAGE_TYPES, WEB_VIEW_URL } from '@/constants/auth';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Linking, SafeAreaView, StyleSheet } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
 export default function Index() {

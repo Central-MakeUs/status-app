@@ -15,7 +15,7 @@
     },
     "android": {
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.status-app"
+      "package": "com.stackoverflow.status"
     },
     "web": {
       "bundler": "metro",
