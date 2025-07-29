@@ -67,6 +67,7 @@ export default function Index() {
         startInLoadingState={true}
         allowsInlineMediaPlayback={true}
         mediaPlaybackRequiresUserAction={false}
+        overScrollMode="never"
       />
     </SafeAreaView>
   );
