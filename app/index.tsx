@@ -1,7 +1,8 @@
 import { MESSAGE_TYPES, WEB_VIEW_URL } from '@/constants/auth';
 import { useLocalSearchParams } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useRef, useState } from 'react';
-import { Linking, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
@@ -16,6 +17,7 @@ export default function Index() {
     }
 
     if (params.code && params.provider) {
+      WebBrowser.dismissBrowser();
       webViewRef.current.postMessage(
         JSON.stringify({
           type: MESSAGE_TYPES.AUTH_SUCCESS,
@@ -38,13 +40,13 @@ export default function Index() {
     setWebViewLoaded(true);
   };
 
-  const handleWebMessage = (event: { nativeEvent: { data: string } }) => {
+  const handleWebMessage = async (event: { nativeEvent: { data: string } }) => {
     try {
       const message = JSON.parse(event.nativeEvent.data);
 
       switch (message.type) {
         case MESSAGE_TYPES.OPEN_EXTERNAL_BROWSER:
-          Linking.openURL(message.url);
+          await WebBrowser.openBrowserAsync(message.url);
           break;
         default:
           break;

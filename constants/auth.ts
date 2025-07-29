@@ -1,5 +1,9 @@
+import { Platform } from 'react-native';
+
 export const WEB_VIEW_URL = __DEV__
-  ? 'http://localhost:5173'
+  ? Platform.OS === 'android'
+    ? 'http://10.0.2.2:5173'
+    : 'http://localhost:5173'
   : 'https://status-front-rho.vercel.app';
 
 export const MESSAGE_TYPES = {
