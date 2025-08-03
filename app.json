@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "status-app",
+    "name": "status",
     "slug": "status-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,22 +9,42 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.stackoverflow.status",
-      "associatedDomains": ["applinks:status-front-rho.vercel.app"]
+      "appleTeamId": "KK8RN9BH2Z",
+      "bundleIdentifier": "com.status.app.status",
+      "supportsTablet": false,
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "edgeToEdgeEnabled": true,
-      "package": "com.stackoverflow.status"
+      "package": "com.status.app.status"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": ""
     },
-    "plugins": ["expo-router", "expo-web-browser"],
+    "plugins": [
+      "expo-router",
+      "expo-web-browser",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#161416"
+        }
+      ],
+      "expo-video"
+    ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bb83d6ca-e7fc-406b-8e82-ef092f10c41d"
+      }
     }
   }
 }
