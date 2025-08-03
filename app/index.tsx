@@ -2,7 +2,7 @@ import { MESSAGE_TYPES, WEB_VIEW_URL } from '@/constants/auth';
 import { useLocalSearchParams } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
@@ -58,17 +58,21 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <WebView
-        ref={webViewRef}
-        source={{ uri: WEB_VIEW_URL }}
-        javaScriptEnabled={true}
-        onMessage={handleWebMessage}
-        onLoadEnd={handleWebViewLoad}
-        startInLoadingState={true}
-        allowsInlineMediaPlayback={true}
-        mediaPlaybackRequiresUserAction={false}
-        overScrollMode="never"
-      />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+        <WebView
+          ref={webViewRef}
+          source={{ uri: WEB_VIEW_URL }}
+          javaScriptEnabled={true}
+          onMessage={handleWebMessage}
+          onLoadEnd={handleWebViewLoad}
+          startInLoadingState={true}
+          allowsInlineMediaPlayback={true}
+          mediaPlaybackRequiresUserAction={false}
+          overScrollMode="never"
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
