@@ -5,15 +5,6 @@ import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const assetId = require('@/assets/images/splash-screen.mp4');
-
-const videoSource: VideoSource = {
-  assetId,
-  metadata: {
-    title: 'Splash Screen',
-  },
-};
-
 export const AnimatedSplashScreen = ({
   children,
 }: {
@@ -22,8 +13,24 @@ export const AnimatedSplashScreen = ({
   const [isSplashVideoComplete, setSplashVideoComplete] = useState(false);
   const [isAppReady, setIsAppReady] = useState(false);
 
+  const videoSource: VideoSource = {
+    uri: 'splash',
+    metadata: {
+      title: 'Splash Screen',
+    },
+  };
+
   const player = useVideoPlayer(videoSource, (player) => {
-    player.play();
+    if (!videoSource) {
+      return;
+    }
+
+    try {
+      player.play();
+    } catch (error) {
+      console.error('Failed to play video:', error);
+      setSplashVideoComplete(true);
+    }
   });
 
   const { isPlaying } = useEvent(player, 'playingChange', {

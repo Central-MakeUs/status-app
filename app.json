@@ -32,11 +32,17 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-screen.png",
+          "image": "./assets/images/splash.png",
           "backgroundColor": "#161416"
         }
       ],
-      "expo-video"
+      "expo-video",
+      [
+        "expo-asset",
+        {
+          "assets": ["./assets/images/splash.mp4"]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
