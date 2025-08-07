@@ -36,13 +36,7 @@
           "backgroundColor": "#161416"
         }
       ],
-      "expo-video",
-      [
-        "expo-asset",
-        {
-          "assets": ["./assets/images/splash.mp4"]
-        }
-      ]
+      "react-native-video"
     ],
     "experiments": {
       "typedRoutes": true

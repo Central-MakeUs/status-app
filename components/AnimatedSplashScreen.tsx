@@ -1,9 +1,7 @@
-import { useEvent, useEventListener } from 'expo';
-import * as SplashScreen from 'expo-splash-screen';
-import { VideoSource, VideoView, useVideoPlayer } from 'expo-video';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Video } from 'react-native-video';
 
 export const AnimatedSplashScreen = ({
   children,
@@ -12,50 +10,30 @@ export const AnimatedSplashScreen = ({
 }) => {
   const [isSplashVideoComplete, setSplashVideoComplete] = useState(false);
   const [isAppReady, setIsAppReady] = useState(false);
+  const videoSource = require('@/assets/images/splash.mp4');
 
-  const videoSource: VideoSource = {
-    uri: 'splash',
-    metadata: {
-      title: 'Splash Screen',
-    },
+  const handleVideoLoad = () => {
+    setIsAppReady(true);
   };
 
-  const player = useVideoPlayer(videoSource, (player) => {
-    if (!videoSource) {
-      return;
-    }
-
-    try {
-      player.play();
-    } catch (error) {
-      console.error('Failed to play video:', error);
-      setSplashVideoComplete(true);
-    }
-  });
-
-  const { isPlaying } = useEvent(player, 'playingChange', {
-    isPlaying: player.playing,
-  });
-
-  useEventListener(player, 'playToEnd', () => {
-    SplashScreen.hideAsync();
+  const handleVideoEnd = async () => {
     setSplashVideoComplete(true);
-  });
-
-  useEffect(() => {
-    if (isPlaying) {
-      setIsAppReady(true);
-    }
-  }, [isPlaying]);
+  };
 
   return (
     <>
       {!isSplashVideoComplete && (
         <SafeAreaView style={styles.splashVideoContainer}>
-          <VideoView
-            player={player}
-            nativeControls={false}
+          <Video
+            source={videoSource}
+            controls={false}
             style={styles.splashVideo}
+            onLoad={handleVideoLoad}
+            onEnd={handleVideoEnd}
+            repeat={false}
+            muted={true}
+            ignoreSilentSwitch="ignore"
+            hideShutterView={true}
           />
         </SafeAreaView>
       )}
@@ -79,5 +57,6 @@ const styles = StyleSheet.create({
     height: 382,
     marginTop: 53,
     marginHorizontal: 'auto',
+    backgroundColor: '#161416',
   },
 });
