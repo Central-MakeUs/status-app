@@ -17,23 +17,36 @@ export default function Index() {
       return;
     }
 
-    if (params.code && params.provider) {
-      WebBrowser.dismissBrowser();
-      webViewRef.current.postMessage(
-        JSON.stringify({
-          type: MESSAGE_TYPES.AUTH_SUCCESS,
-          data: { code: params.code, provider: params.provider },
-        })
-      );
-    }
+    const sendAuthMessage = () => {
+      if (!webViewRef.current) {
+        return;
+      }
 
-    if (params.error) {
-      webViewRef.current.postMessage(
-        JSON.stringify({
-          type: MESSAGE_TYPES.AUTH_ERROR,
-          data: { error: params.error },
-        })
-      );
+      if (params.code && params.provider) {
+        webViewRef.current.postMessage(
+          JSON.stringify({
+            type: MESSAGE_TYPES.AUTH_SUCCESS,
+            data: { code: params.code, provider: params.provider },
+          })
+        );
+      }
+
+      if (params.error) {
+        webViewRef.current.postMessage(
+          JSON.stringify({
+            type: MESSAGE_TYPES.AUTH_ERROR,
+            data: { error: params.error },
+          })
+        );
+      }
+    };
+
+    if (Platform.OS === 'ios') {
+      WebBrowser.dismissBrowser().then(() => {
+        sendAuthMessage();
+      });
+    } else {
+      sendAuthMessage();
     }
   }, [webViewLoaded, params]);
 
@@ -62,7 +75,8 @@ export default function Index() {
       <StatusBar style="light" backgroundColor="#161416" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.container}>
+        style={styles.container}
+      >
         <WebView
           ref={webViewRef}
           source={{ uri: WEB_VIEW_URL }}
