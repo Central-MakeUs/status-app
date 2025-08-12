@@ -1,6 +1,5 @@
 import { MESSAGE_TYPES, WEB_VIEW_URL } from '@/constants/auth';
 import { useLocalSearchParams } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
@@ -72,7 +71,6 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="light" backgroundColor="#161416" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.container}
@@ -86,6 +84,9 @@ export default function Index() {
           startInLoadingState={true}
           allowsInlineMediaPlayback={true}
           mediaPlaybackRequiresUserAction={false}
+          thirdPartyCookiesEnabled={true}
+          sharedCookiesEnabled={true}
+          domStorageEnabled={true}
           overScrollMode="never"
         />
       </KeyboardAvoidingView>

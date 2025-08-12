@@ -8,8 +8,6 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <StatusBar
         style="light"
-        backgroundColor="#161416"
-        translucent={false}
         hidden={false}
       />
       <AnimatedSplashScreen>
