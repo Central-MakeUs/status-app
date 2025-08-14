@@ -84,9 +84,6 @@ export default function Index() {
           startInLoadingState={true}
           allowsInlineMediaPlayback={true}
           mediaPlaybackRequiresUserAction={false}
-          thirdPartyCookiesEnabled={true}
-          sharedCookiesEnabled={true}
-          domStorageEnabled={true}
           overScrollMode="never"
         />
       </KeyboardAvoidingView>
